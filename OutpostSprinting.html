@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags for SEO and Accessibility -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outpost - Enterprise Dashboard</title>
+    <meta name="description" content="Outpost Dashboard - Manage analytics, tasks, messages, video calls, notifications, activity logs, and settings in one place.">
+    <meta name="keywords" content="Outpost, Dashboard, Enterprise, Analytics, Tasks, Messages, Video Call, Notifications, Activity Logs, Settings">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js Zoom Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.0.0"></script>
+    <!-- Chart.js Annotation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.0"></script>
+    <!-- Date Range Picker Library -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <!-- FullCalendar Library -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+
+    <!-- External CSS -->
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #000000; /* Black */
+            --secondary-color: #C62828; /* Red */
+            --accent-color: #FFFFFF;   /* White */
+            --background-color: #FFFFFF; /* White */
+            --text-color: #000000;    /* Black */
+            --light-text-color: #F0F0F0; /* Light Grey */
+            --border-color: #CCCCCC;  /* Light Gray */
+            --muted-text-color: #888888; /* Medium Gray */
+            --sidebar-width: 250px;
+        }
+
+        body.dark-mode {
+            --primary-color: #FFFFFF; /* White */
+            --secondary-color: #C62828; /* Red */
+            --accent-color: #000000;   /* Black */
+            --background-color: #121212; /* Dark Grey */
+            --text-color: #FFFFFF;    /* White Text */
+            --light-text-color: #1F1F1F; /* Darker Shade */
+            --border-color: #2C2C2C;  /* Dark Gray */
+            --muted-text-color: #BBBBBB; /* Light Gray in Dark Mode */
+        }
+
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Accessibility */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:focus, button:focus, input:focus {
+            outline: 2px solid var(--secondary-color);
+        }
+
+        /* Sidebar */
+        aside.sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100%;
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            overflow-y: auto;
+            transition: width 0.3s;
+        }
+
+        aside.sidebar .user-profile {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        aside.sidebar .user-profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        aside.sidebar .user-profile h4 {
+            margin: 0;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        aside.sidebar .user-profile .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            min-width: 150px;
+            z-index: 100;
+            display: none;
+        }
+
+        aside.sidebar .user-profile:hover .profile-dropdown {
+            display: block;
+        }
+
+        aside.sidebar .user-profile .profile-dropdown a {
+            display: block;
+            padding: 10px;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        aside.sidebar .user-profile .profile-dropdown a:hover {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+        }
+
+        aside.sidebar ul {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        aside.sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        aside.sidebar ul li:hover, aside.sidebar ul li.active {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+        }
+
+        aside.sidebar ul li i {
+            margin-right: 15px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        aside.sidebar ul li .nav-text {
+            display: inline-block;
+        }
+
+        /* Main Content */
+        main.main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+
+        /* Title */
+        .main-title {
+            font-size: 3rem;
+            font-family: 'UnifrakturMaguntia', cursive;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* Sections */
+        section {
+            margin-top: 40px;
+        }
+
+        /* Cards */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            flex: 1;
+            max-width: 300px;
+            background-color: var(--light-text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            cursor: move;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        /* Drag and Drop Styles */
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .placeholder {
+            border: 2px dashed var(--secondary-color);
+            margin: 10px;
+            flex: 1;
+        }
+
+        /* Notifications Section */
+        .notifications, .activity-logs {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .notifications h2, .activity-logs h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .notifications ul, .activity-logs ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notifications li, .activity-logs li {
+            background-color: var(--light-text-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Messages Section */
+        .messages {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            background-color: var(--light-text-color);
+        }
+
+        .message-list {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message-list .message {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message-list .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .message-list .message .message-content {
+            max-width: 80%;
+        }
+
+        .message-list .message .sender {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .message-list .message .text {
+            margin-left: 0;
+        }
+
+        .message-list .message .timestamp {
+            font-size: 0.8rem;
+            color: var(--muted-text-color);
+            margin-top: 2px;
+        }
+
+        .message-input {
+            display: flex;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            font-size: 1rem;
+            background-color: var(--light-text-color);
+            color: var(--text-color);
+        }
+
+        .message-input button {
+            padding: 15px;
+            border: none;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        /* Video Conferencing Section */
+        .video-section {
+            text-align: center;
+        }
+
+        .video-section button {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .video-section button:hover {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+        }
+
+        .video-section #video-frame {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Task Management Section */
+        .task-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .task-controls select, .task-controls input, .task-controls button {
+            padding: 10px;
+            font-size: 1rem;
+            margin-right: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .task-controls button {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .kanban-board {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            justify-content: center;
+        }
+
+        .kanban-column {
+            min-width: 250px;
+            background-color: var(--light-text-color);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .kanban-column h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .kanban-column .tasks {
+            min-height: 100px;
+        }
+
+        .kanban-column .task {
+            background-color: var(--background-color);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: grab;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .task .task-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .task .task-details {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .task .delete-task-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Analytics Section */
+        .charts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .chart-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--light-text-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .chart-container .delete-chart-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        /* Analytics Form */
+        .analytics-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .analytics-form input,
+        .analytics-form select,
+        .analytics-form button {
+            padding: 10px;
+            font-size: 1rem;
+            margin: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .analytics-form button {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        /* Analysis Results */
+        #analysis-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: var(--light-text-color);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 10px;
+            color: var(--text-color);
+        }
+
+        #analysis-container h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--light-text-color);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Notification Toast */
+        .notification-toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 992px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .kanban-board {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .video-section #video-frame {
+                height: 300px;
+            }
+
+            aside.sidebar {
+                width: 60px;
+            }
+
+            aside.sidebar ul li .nav-text {
+                display: none;
+            }
+
+            main.main-content {
+                margin-left: 60px;
+            }
+
+            .theme-toggle {
+                bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Side Navigation">
+        <!-- User Profile Section -->
+        <div class="user-profile">
+            <img src="user-avatar.jpg" alt="User Avatar" onclick="navigateTo(event, 'profile')">
+            <h4 onclick="navigateTo(event, 'profile')">John Doe</h4>
+            <div class="profile-dropdown">
+                <a href="#" onclick="navigateTo(event, 'profile')">View Profile</a>
+                <a href="#" onclick="openSettings()">Settings</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+        <ul>
+            <li onclick="navigateTo(event, 'dashboard')" id="nav-dashboard" class="active"><i class="fas fa-tachometer-alt" aria-hidden="true"></i> <span class="nav-text">Dashboard</span></li>
+            <li onclick="navigateTo(event, 'analytics')" id="nav-analytics"><i class="fas fa-chart-line" aria-hidden="true"></i> <span class="nav-text">Analytics</span></li>
+            <li onclick="navigateTo(event, 'tasks')" id="nav-tasks"><i class="fas fa-tasks" aria-hidden="true"></i> <span class="nav-text">Tasks</span></li>
+            <li onclick="navigateTo(event, 'messages')" id="nav-messages"><i class="fas fa-comments" aria-hidden="true"></i> <span class="nav-text">Messages</span></li>
+            <li onclick="navigateTo(event, 'video')" id="nav-video"><i class="fas fa-video" aria-hidden="true"></i> <span class="nav-text">Video Call</span></li>
+            <li onclick="navigateTo(event, 'notifications')" id="nav-notifications"><i class="fas fa-bell" aria-hidden="true"></i> <span class="nav-text">Notifications</span></li>
+            <li onclick="navigateTo(event, 'activity')" id="nav-activity"><i class="fas fa-history" aria-hidden="true"></i> <span class="nav-text">Activity Logs</span></li>
+            <li onclick="openSettings()" id="nav-settings"><i class="fas fa-cog" aria-hidden="true"></i> <span class="nav-text">Settings</span></li>
+            <li onclick="logout()" id="nav-logout"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> <span class="nav-text">Logout</span></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <!-- Main Title -->
+        <div class="main-title" id="main-title">Outpost Dashboard</div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section">
+            <!-- Cards -->
+            <div class="cards" role="region" aria-label="Dashboard Widgets">
+                <div class="card" draggable="true">
+                    <h3>Revenue</h3>
+                    <p id="revenue">Loading...</p>
+                </div>
+                <div class="card" draggable="true">
+                    <h3>Users</h3>
+                    <p id="users">Loading...</p>
+                </div>
+                <div class="card" draggable="true">
+                    <h3>Sessions</h3>
+                    <p id="sessions">Loading...</p>
+                </div>
+                <div class="card" draggable="true">
+                    <h3>Feedback</h3>
+                    <p id="feedback">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" style="display: none;">
+            <!-- Analytics Form -->
+            <div class="analytics-form">
+                <select id="chart-type">
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="doughnut">Doughnut Chart</option>
+                </select>
+                <input type="text" id="date-range" placeholder="Select Date Range" />
+                <select id="data-category">
+                    <option value="sales">Sales</option>
+                    <option value="users">Users</option>
+                    <option value="sessions">Sessions</option>
+                </select>
+                <select id="comparison-category">
+                    <option value="">No Comparison</option>
+                    <option value="sales">Compare with Sales</option>
+                    <option value="users">Compare with Users</option>
+                    <option value="sessions">Compare with Sessions</option>
+                </select>
+                <button onclick="loadAnalyticsData()">Load Data</button>
+                <button onclick="exportChartData()">Export Data</button>
+            </div>
+            <div class="charts" id="charts-container" role="region" aria-label="Analytics Charts">
+                <!-- Charts will be dynamically added here -->
+            </div>
+            <!-- Analysis Results Container -->
+            <div id="analysis-container">
+                <!-- Analysis results will be displayed here -->
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile-section" style="display: none;">
+            <div class="profile-page">
+                <h2>User Profile</h2>
+                <div class="profile-details">
+                    <img src="user-avatar.jpg" alt="User Avatar" id="profile-avatar">
+                    <form id="profile-form" onsubmit="saveProfile(event)">
+                        <div>
+                            <label for="profile-name">Name:</label>
+                            <input type="text" id="profile-name" name="name" required>
+                        </div>
+                        <div>
+                            <label for="profile-email">Email:</label>
+                            <input type="email" id="profile-email" name="email" required>
+                        </div>
+                        <div>
+                            <label for="profile-picture">Profile Picture:</label>
+                            <input type="file" id="profile-picture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)">
+                        </div>
+                        <div>
+                            <label for="profile-bio">Bio:</label>
+                            <textarea id="profile-bio" name="bio" rows="4"></textarea>
+                        </div>
+                        <button type="submit">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Management Section -->
+        <section id="tasks-section" style="display: none;">
+            <!-- Task Controls -->
+            <div class="task-controls">
+                <button onclick="openTaskModal()">Add Task</button>
+            </div>
+            <!-- Kanban Board -->
+            <div class="kanban-board">
+                <div class="kanban-column" data-status="todo">
+                    <h3>To Do</h3>
+                    <div class="tasks" id="todo-tasks"></div>
+                </div>
+                <div class="kanban-column" data-status="in-progress">
+                    <h3>In Progress</h3>
+                    <div class="tasks" id="in-progress-tasks"></div>
+                </div>
+                <div class="kanban-column" data-status="done">
+                    <h3>Done</h3>
+                    <div class="tasks" id="done-tasks"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Messaging Section -->
+        <section id="messages-section" style="display: none;">
+            <div class="messages">
+                <div class="message-list" id="message-list">
+                    <!-- Messages will be appended here -->
+                </div>
+                <div class="typing-indicator" id="typing-indicator" style="display: none;">User is typing...</div>
+                <div class="message-input">
+                    <input type="text" id="message-input" placeholder="Type a message..." oninput="handleTyping()">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Conferencing Section -->
+        <section id="video-section" style="display: none;">
+            <div class="video-section">
+                <button onclick="startVideoCall()">Start Video Call</button>
+                <div id="video-frame-container"></div>
+            </div>
+        </section>
+
+        <!-- Notifications Section -->
+        <section id="notifications-section" style="display: none;">
+            <div class="notifications">
+                <h2>Notifications</h2>
+                <ul id="notification-list">
+                    <!-- Notifications will be loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Activity Logs Section -->
+        <section id="activity-section" style="display: none;">
+            <div class="activity-logs">
+                <h2>Activity Logs</h2>
+                <ul id="activity-list">
+                    <!-- Activities will be loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2024 Outpost. All Rights Reserved.
+        </footer>
+    </main>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+        <i class="fas fa-adjust"></i>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification-toast" id="notification-toast">
+        <!-- Notification message will appear here -->
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeSettings()">&times;</button>
+            <h2>Settings</h2>
+            <form id="settings-form" onsubmit="saveSettings(event)">
+                <div>
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select" name="theme">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+                <!-- Add more settings as needed -->
+                <button type="submit">Save Settings</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Task Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeTaskModal()">&times;</button>
+            <h2 id="task-modal-title">Add Task</h2>
+            <form id="task-form" onsubmit="saveTask(event)">
+                <div>
+                    <label for="task-title">Title:</label>
+                    <input type="text" id="task-title" name="title" required>
+                </div>
+                <div>
+                    <label for="task-details">Details:</label>
+                    <textarea id="task-details" name="details" rows="4"></textarea>
+                </div>
+                <div>
+                    <label for="task-status">Status:</label>
+                    <select id="task-status" name="status" required>
+                        <option value="todo">To Do</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+                <button type="submit">Save Task</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation Function
+        function navigateTo(event, section) {
+            event.preventDefault();
+            // Remove 'active' class from all nav items
+            document.querySelectorAll('.sidebar ul li').forEach(li => li.classList.remove('active'));
+            // Add 'active' class to the clicked nav item
+            if (event.currentTarget.tagName === 'LI') {
+                event.currentTarget.classList.add('active');
+            }
+            // Hide all sections
+            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+            // Show the selected section
+            const sectionElement = document.getElementById(section + '-section');
+            if (sectionElement) {
+                sectionElement.style.display = 'block';
+                // Update page title and main heading
+                const pageTitle = 'Outpost - ' + capitalizeFirstLetter(section);
+                document.title = pageTitle;
+                document.getElementById('main-title').textContent = 'Outpost ' + capitalizeFirstLetter(section);
+                // Special handling for profile section
+                if (section === 'profile') {
+                    loadUserProfile();
+                }
+                // Special handling for tasks section
+                if (section === 'tasks') {
+                    loadTasks();
+                }
+                // Special handling for messages section
+                if (section === 'messages') {
+                    loadMessages();
+                }
+                // Special handling for notifications
+                if (section === 'notifications') {
+                    loadNotifications();
+                }
+                // Special handling for activity logs
+                if (section === 'activity') {
+                    loadActivityLogs();
+                }
+            } else {
+                alert('Section not found: ' + section);
+            }
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            // Save preference to localStorage
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+        // User Authentication Check
+        function isUserAuthenticated() {
+            // Implement authentication check
+            return true; // Placeholder
+        }
+
+        // User Profile Functions
+        function loadUserProfile() {
+            // Load user data from localStorage or use defaults
+            const userData = JSON.parse(localStorage.getItem('userData')) || {
+                name: 'John Doe',
+                email: 'john.doe@example.com',
+                bio: 'Software Engineer at Outpost',
+                avatar: 'user-avatar.jpg' // Default avatar
+            };
+            document.getElementById('profile-name').value = userData.name;
+            document.getElementById('profile-email').value = userData.email;
+            document.getElementById('profile-bio').value = userData.bio;
+
+            // If avatar is stored as Base64 in localStorage, use it
+            if (userData.avatarBase64) {
+                document.getElementById('profile-avatar').src = userData.avatarBase64;
+                document.querySelector('.user-profile img').src = userData.avatarBase64;
+            } else {
+                // Use default avatar
+                document.getElementById('profile-avatar').src = userData.avatar;
+                document.querySelector('.user-profile img').src = userData.avatar;
+            }
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const name = document.getElementById('profile-name').value;
+            const email = document.getElementById('profile-email').value;
+            const bio = document.getElementById('profile-bio').value;
+
+            // Update user data
+            const userData = {
+                name: name,
+                email: email,
+                bio: bio,
+                avatar: 'user-avatar.jpg' // Default avatar
+            };
+
+            // Handle profile picture
+            const profilePicture = document.getElementById('profile-picture').files[0];
+            if (profilePicture) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarBase64 = e.target.result;
+                    userData.avatarBase64 = avatarBase64;
+
+                    // Save user data to localStorage
+                    localStorage.setItem('userData', JSON.stringify(userData));
+
+                    // Update avatar images
+                    document.querySelector('.user-profile img').src = avatarBase64;
+                    document.getElementById('profile-avatar').src = avatarBase64;
+                    showNotification('Profile updated successfully');
+                };
+                reader.readAsDataURL(profilePicture);
+            } else {
+                // If no new picture is uploaded, retain existing Base64 avatar
+                const existingData = JSON.parse(localStorage.getItem('userData'));
+                if (existingData && existingData.avatarBase64) {
+                    userData.avatarBase64 = existingData.avatarBase64;
+                }
+
+                // Save user data to localStorage
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                // Update avatar images if Base64 exists
+                if (userData.avatarBase64) {
+                    document.querySelector('.user-profile img').src = userData.avatarBase64;
+                    document.getElementById('profile-avatar').src = userData.avatarBase64;
+                }
+
+                showNotification('Profile updated successfully');
+            }
+
+            // Update sidebar user name
+            document.querySelector('.user-profile h4').textContent = name;
+        }
+
+        function previewProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-avatar').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Load Dashboard Data
+        function loadDashboardData() {
+            // Sample data
+            document.getElementById('revenue').textContent = '$120,000';
+            document.getElementById('users').textContent = '2,500';
+            document.getElementById('sessions').textContent = '8,000';
+            document.getElementById('feedback').textContent = '95% Positive';
+        }
+
+        // Load Notifications
+        function loadNotifications() {
+            const notifications = JSON.parse(localStorage.getItem('notifications')) || [
+                { id: 1, message: 'Task "Design UI" has been updated.', timestamp: '2024-01-10T12:00:00Z', read: false },
+                { id: 2, message: 'You have a new message from Alice.', timestamp: '2024-01-10T12:05:00Z', read: false },
+                { id: 3, message: 'Meeting scheduled for 2 PM today.', timestamp: '2024-01-10T12:10:00Z', read: false },
+            ];
+            const notificationList = document.getElementById('notification-list');
+            notificationList.innerHTML = '';
+            notifications.forEach(notif => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${notif.message} (${new Date(notif.timestamp).toLocaleString()})`;
+                listItem.style.fontWeight = notif.read ? 'normal' : 'bold';
+                listItem.onclick = () => markNotificationAsRead(notif.id);
+                notificationList.appendChild(listItem);
+            });
+            // Save to localStorage
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+        }
+
+        function markNotificationAsRead(id) {
+            let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+            notifications = notifications.map(notif => {
+                if (notif.id === id) {
+                    notif.read = true;
+                }
+                return notif;
+            });
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+            loadNotifications();
+        }
+
+        // Load Activity Logs
+        function loadActivityLogs() {
+            const activities = JSON.parse(localStorage.getItem('activities')) || [
+                { id: 1, activity: 'Logged in', timestamp: '2024-01-10T09:00:00Z' },
+                { id: 2, activity: 'Updated profile settings', timestamp: '2024-01-10T09:15:00Z' },
+                { id: 3, activity: 'Created task "Develop Backend"', timestamp: '2024-01-10T09:30:00Z' },
+            ];
+            const activityList = document.getElementById('activity-list');
+            activityList.innerHTML = '';
+            activities.forEach(act => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${act.activity} (${new Date(act.timestamp).toLocaleString()})`;
+                activityList.appendChild(listItem);
+            });
+        }
+
+        function logActivity(activity) {
+            const activities = JSON.parse(localStorage.getItem('activities')) || [];
+            activities.unshift({
+                id: activities.length + 1,
+                activity: activity,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('activities', JSON.stringify(activities));
+        }
+
+        // Show Notification Toast
+        function showNotification(message) {
+            const notificationToast = document.getElementById('notification-toast');
+            notificationToast.textContent = message;
+            notificationToast.style.display = 'block';
+            setTimeout(() => {
+                notificationToast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Logout Function
+        function logout() {
+            // Implement logout functionality
+            alert('Logging out...');
+            window.location.href = 'signin.html';
+        }
+
+        // Settings Modal Functions
+        function openSettings() {
+            document.getElementById('settings-modal').style.display = 'block';
+            // Load current settings
+            const theme = localStorage.getItem('theme') || 'light';
+            document.getElementById('theme-select').value = theme;
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        function saveSettings(event) {
+            event.preventDefault();
+            const theme = document.getElementById('theme-select').value;
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            localStorage.setItem('theme', theme);
+            showNotification('Settings saved successfully');
+            closeSettings();
+        }
+
+        // Task Management Functions
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            ['todo', 'in-progress', 'done'].forEach(status => {
+                const column = document.getElementById(`${status}-tasks`);
+                column.innerHTML = '';
+                tasks.filter(task => task.status === status).forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.classList.add('task');
+                    taskElement.setAttribute('draggable', 'true');
+                    taskElement.setAttribute('data-id', task.id);
+
+                    taskElement.innerHTML = `
+                        <h4 class="task-title">${task.title}</h4>
+                        <p class="task-details">${task.details}</p>
+                        <button class="delete-task-btn" onclick="deleteTask(${task.id})">&times;</button>
+                    `;
+
+                    taskElement.addEventListener('dragstart', dragStart);
+                    taskElement.addEventListener('dragend', dragEnd);
+
+                    column.appendChild(taskElement);
+                });
+            });
+
+            // Set up drag and drop
+            document.querySelectorAll('.kanban-column .tasks').forEach(column => {
+                column.addEventListener('dragover', dragOver);
+                column.addEventListener('drop', drop);
+            });
+        }
+
+        function openTaskModal() {
+            document.getElementById('task-modal').style.display = 'block';
+            document.getElementById('task-modal-title').textContent = 'Add Task';
+            document.getElementById('task-form').reset();
+            document.getElementById('task-form').onsubmit = saveTask;
+        }
+
+        function closeTaskModal() {
+            document.getElementById('task-modal').style.display = 'none';
+        }
+
+        function saveTask(event) {
+            event.preventDefault();
+            const title = document.getElementById('task-title').value;
+            const details = document.getElementById('task-details').value;
+            const status = document.getElementById('task-status').value;
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push({
+                id: tasks.length + 1,
+                title: title,
+                details: details,
+                status: status
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            loadTasks();
+            logActivity(`Added task "${title}"`);
+            showNotification('Task added successfully');
+            closeTaskModal();
+        }
+
+        function deleteTask(id) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const task = tasks.find(t => t.id === id);
+            tasks = tasks.filter(task => task.id !== id);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            loadTasks();
+            logActivity(`Deleted task "${task.title}"`);
+            showNotification('Task deleted successfully');
+        }
+
+        // Drag and Drop Functions
+        let draggedTask = null;
+
+        function dragStart(event) {
+            draggedTask = event.currentTarget;
+            setTimeout(() => {
+                event.currentTarget.style.display = 'none';
+            }, 0);
+        }
+
+        function dragEnd(event) {
+            event.currentTarget.style.display = 'block';
+            draggedTask = null;
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            if (draggedTask) {
+                const newStatus = event.currentTarget.parentElement.getAttribute('data-status');
+                const taskId = parseInt(draggedTask.getAttribute('data-id'));
+                let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+                tasks = tasks.map(task => {
+                    if (task.id === taskId) {
+                        task.status = newStatus;
+                    }
+                    return task;
+                });
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+                logActivity(`Moved task ID ${taskId} to ${capitalizeFirstLetter(newStatus)}`);
+            }
+        }
+
+        // Messaging Functions
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('messages')) || [];
+            const messageList = document.getElementById('message-list');
+            messageList.innerHTML = '';
+            messages.forEach(message => {
+                displayMessage(message);
+            });
+        }
+
+        function displayMessage(message) {
+            const messageList = document.getElementById('message-list');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+
+            messageElement.innerHTML = `
+                <img src="user-avatar.jpg" alt="Avatar" class="avatar">
+                <div class="message-content">
+                    <div class="sender">${message.sender}</div>
+                    <div class="text">${message.text}</div>
+                    <div class="timestamp">${new Date(message.timestamp).toLocaleTimeString()}</div>
+                </div>
+            `;
+            messageList.appendChild(messageElement);
+            messageList.scrollTop = messageList.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            if (text === '') return;
+
+            const message = {
+                sender: 'You',
+                text: text,
+                timestamp: new Date().toISOString()
+            };
+
+            // Save message
+            const messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.push(message);
+            localStorage.setItem('messages', JSON.stringify(messages));
+
+            displayMessage(message);
+            input.value = '';
+            logActivity(`Sent a message: "${text}"`);
+        }
+
+        let typingTimeout;
+        function handleTyping() {
+            clearTimeout(typingTimeout);
+            document.getElementById('typing-indicator').style.display = 'block';
+            typingTimeout = setTimeout(() => {
+                document.getElementById('typing-indicator').style.display = 'none';
+            }, 1000);
+        }
+
+        // Video Conferencing Functions
+        function startVideoCall() {
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: 'OutpostVideoRoom_' + new Date().getTime(),
+                width: '100%',
+                height: 500,
+                parentNode: document.getElementById('video-frame-container'),
+                userInfo: {
+                    email: 'john.doe@example.com',
+                    displayName: 'John Doe'
+                }
+            };
+            new JitsiMeetExternalAPI(domain, options);
+            logActivity('Started a video call');
+        }
+
+        // Analytics Section Enhancements
+        function loadAnalyticsData() {
+            const chartType = document.getElementById('chart-type').value;
+            const dateRange = document.getElementById('date-range').value;
+            const dataCategory = document.getElementById('data-category').value;
+            const comparisonCategory = document.getElementById('comparison-category').value;
+
+            // Clear previous analysis
+            document.getElementById('analysis-container').innerHTML = '';
+
+            // Simulate data fetching from an API
+            fetchAnalyticsData(dateRange, dataCategory).then(data => {
+                if (comparisonCategory) {
+                    fetchAnalyticsData(dateRange, comparisonCategory).then(comparisonData => {
+                        plotAnalyticsChart(chartType, dataCategory, data, comparisonCategory, comparisonData);
+                    });
+                } else {
+                    plotAnalyticsChart(chartType, dataCategory, data);
+                }
+            });
+        }
+
+        function fetchAnalyticsData(dateRange, category) {
+            return new Promise((resolve) => {
+                // Simulated data
+                const data = generateDummyData(category);
+                setTimeout(() => resolve(data), 1000);
+            });
+        }
+
+        function generateDummyData(category) {
+            const labels = [];
+            const values = [];
+            const now = moment();
+            const days = 30;
+
+            for (let i = days; i >= 0; i--) {
+                labels.push(now.clone().subtract(i, 'days').format('YYYY-MM-DD'));
+                values.push(Math.floor(Math.random() * 100) + 1);
+            }
+
+            return { labels, values };
+        }
+
+        function plotAnalyticsChart(chartType, category, data, comparisonCategory = null, comparisonData = null) {
+            // Clear existing charts
+            document.getElementById('charts-container').innerHTML = '';
+
+            const chartContainer = document.createElement('div');
+            chartContainer.classList.add('chart-container');
+
+            const canvas = document.createElement('canvas');
+            chartContainer.appendChild(canvas);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-chart-btn');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = () => {
+                chartContainer.remove();
+                showNotification('Chart deleted successfully');
+            };
+            chartContainer.appendChild(deleteBtn);
+
+            document.getElementById('charts-container').appendChild(chartContainer);
+
+            const datasets = [{
+                label: capitalizeFirstLetter(category),
+                data: data.values,
+                backgroundColor: generateColorArray(data.values.length, chartType),
+                borderColor: 'rgba(198, 40, 40, 1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: chartType === 'line' ? true : false,
+            }];
+
+            if (comparisonData) {
+                datasets.push({
+                    label: 'Comparison - ' + capitalizeFirstLetter(comparisonCategory),
+                    data: comparisonData.values,
+                    backgroundColor: generateColorArray(comparisonData.values.length, chartType),
+                    borderColor: 'rgba(40, 198, 40, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: chartType === 'line' ? true : false,
+                });
+            }
+
+            new Chart(canvas.getContext('2d'), {
+                type: chartType,
+                data: {
+                    labels: data.labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                        },
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'x',
+                            },
+                            zoom: {
+                                enabled: true,
+                                mode: 'x',
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 50,
+                                    yMax: 50,
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Threshold',
+                                        enabled: true,
+                                        position: 'center'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: chartType === 'pie' || chartType === 'doughnut' ? {} : {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date',
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Value',
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Perform data analysis
+            const analysis = analyzeData(data.values);
+
+            // Display analysis results
+            displayAnalysisResults(analysis, category);
+
+            if (comparisonData) {
+                const comparisonAnalysis = analyzeData(comparisonData.values);
+                displayAnalysisResults(comparisonAnalysis, comparisonCategory);
+            }
+        }
+
+        function generateColorArray(length, chartType) {
+            const colors = [];
+            for (let i = 0; i < length; i++) {
+                colors.push('rgba(198, 40, 40, 0.2)');
+            }
+            return chartType === 'pie' || chartType === 'doughnut' ? colors.map(() => getRandomColor()) : colors;
+        }
+
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+            return `rgba(${r}, ${g}, ${b}, 0.6)`;
+        }
+
+        function exportChartData() {
+            const charts = document.querySelectorAll('.chart-container canvas');
+            if (charts.length === 0) {
+                alert('No chart data to export.');
+                return;
+            }
+
+            charts.forEach((canvas, index) => {
+                const chart = Chart.getChart(canvas);
+                const data = chart.data;
+                const labels = data.labels;
+                const datasets = data.datasets;
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += labels.join(",") + "\n";
+
+                datasets.forEach(dataset => {
+                    csvContent += dataset.data.join(",") + "\n";
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `chart_data_${index + 1}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // Data Analysis Functions
+        function analyzeData(values) {
+            const analysis = {};
+
+            // Calculate mean
+            const sum = values.reduce((a, b) => a + b, 0);
+            analysis.mean = sum / values.length;
+
+            // Calculate median
+            const sortedValues = [...values].sort((a, b) => a - b);
+            const middleIndex = Math.floor(sortedValues.length / 2);
+            if (sortedValues.length % 2 === 0) {
+                analysis.median = (sortedValues[middleIndex - 1] + sortedValues[middleIndex]) / 2;
+            } else {
+                analysis.median = sortedValues[middleIndex];
+            }
+
+            // Calculate variance and standard deviation
+            const mean = analysis.mean;
+            const squaredDiffs = values.map(value => Math.pow(value - mean, 2));
+            const variance = squaredDiffs.reduce((a, b) => a + b, 0) / values.length;
+            analysis.variance = variance;
+            analysis.stdDev = Math.sqrt(variance);
+
+            // Detect trends (simple approach)
+            const firstHalf = values.slice(0, Math.floor(values.length / 2));
+            const secondHalf = values.slice(Math.floor(values.length / 2));
+            const firstHalfMean = firstHalf.reduce((a, b) => a + b, 0) / firstHalf.length;
+            const secondHalfMean = secondHalf.reduce((a, b) => a + b, 0) / secondHalf.length;
+
+            if (secondHalfMean > firstHalfMean) {
+                analysis.trend = 'Increasing';
+            } else if (secondHalfMean < firstHalfMean) {
+                analysis.trend = 'Decreasing';
+            } else {
+                analysis.trend = 'Stable';
+            }
+
+            // Detect anomalies (values more than 2 standard deviations from the mean)
+            analysis.anomalies = values.filter(value => Math.abs(value - mean) > 2 * analysis.stdDev);
+
+            // Simple linear regression for predictive analysis
+            const n = values.length;
+            const xValues = Array.from({ length: n }, (_, i) => i + 1);
+            const xMean = xValues.reduce((a, b) => a + b, 0) / n;
+            const xySum = xValues.reduce((sum, x, i) => sum + x * values[i], 0);
+            const xSquaredSum = xValues.reduce((sum, x) => sum + x * x, 0);
+            const slope = (n * xySum - xValues.reduce((a, b) => a + b, 0) * sum) / (n * xSquaredSum - Math.pow(xValues.reduce((a, b) => a + b, 0), 2));
+            const intercept = mean - slope * xMean;
+
+            analysis.slope = slope;
+            analysis.intercept = intercept;
+            analysis.predictNext = intercept + slope * (n + 1);
+
+            return analysis;
+        }
+
+        function displayAnalysisResults(analysis, category) {
+            const analysisContainer = document.getElementById('analysis-container');
+
+            const analysisHTML = `
+                <h3>Data Analysis for ${capitalizeFirstLetter(category)}</h3>
+                <p><strong>Mean:</strong> ${analysis.mean.toFixed(2)}</p>
+                <p><strong>Median:</strong> ${analysis.median.toFixed(2)}</p>
+                <p><strong>Variance:</strong> ${analysis.variance.toFixed(2)}</p>
+                <p><strong>Standard Deviation:</strong> ${analysis.stdDev.toFixed(2)}</p>
+                <p><strong>Trend:</strong> ${analysis.trend}</p>
+                <p><strong>Anomalies:</strong> ${analysis.anomalies.join(', ') || 'None'}</p>
+                <p><strong>Predicted Next Value:</strong> ${analysis.predictNext.toFixed(2)}</p>
+            `;
+
+            analysisContainer.innerHTML += analysisHTML;
+        }
+
+        // Initialize Date Range Picker
+        $(function() {
+            $('#date-range').daterangepicker({
+                opens: 'left',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
+
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isUserAuthenticated()) {
+                loadUserProfile();
+                navigateTo(event, 'dashboard');
+                loadDashboardData();
+                loadNotifications();
+                loadActivityLogs();
+                // Initialize other components as needed
+            } else {
+                // Redirect to login page
+                window.location.href = 'signin.html';
+            }
+        });
+
+    </script>
+    <!-- Jitsi Meet API -->
+    <script src='https://meet.jit.si/external_api.js'></script>
+</body>
+</html>

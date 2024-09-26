@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags for SEO and Social Sharing -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outpost - Secure, Uniform Communication Across All Platforms | Start Your Free Trial Today</title>
+    <meta name="description" content="Outpost - A unified communication platform offering real-time messaging, task management, secure video conferencing, and more. Start your free trial today.">
+    <meta name="keywords" content="Outpost, Communication, Task Management, Secure Messaging, Video Conferencing, First Responders, Free Trial">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Outpost - Secure, Uniform Communication Platform">
+    <meta property="og:description" content="Streamline your team's communication with Outpost. Sign up for a free trial now.">
+    <meta property="og:image" content="path_to_social_image.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+    <!-- AOS CSS for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- CSS Styles -->
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #1c1c1c;
+            --secondary-color: #f05454;
+            --accent-color: #000000; /* Black background */
+            --background-color: #f5f5f5;
+            --text-color: #222831;
+            --light-text-color: #eeeeee;
+            --nav-scroll-color: rgba(28, 28, 28, 0.9);
+        }
+
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Accessibility Options */
+        .accessibility-toolbar {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+
+        .accessibility-toolbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            margin: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .accessibility-toolbar button:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Outlined Text */
+        .outlined-text {
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 40px 15px 20px; /* Increased right padding */
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: var(--nav-scroll-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        nav .logo {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 2.5rem; /* Increased font size */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin-left: 20px; /* Moved links to the right */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .cta-nav-button {
+            background-color: var(--secondary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .cta-nav-button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 200px 20px 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero h1,
+        .hero p,
+        .hero .hero-buttons,
+        .hero-benefits {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-in-out;
+            /* Apply outlined text */
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-in-out;
+            /* Apply outlined text */
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        .hero .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .hero button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero button:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* Bullet Points under Hero */
+        .hero-benefits {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .hero-benefits .benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            /* Apply outlined text */
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .features-section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            border-radius: 10px;
+        }
+
+        .feature-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover .feature-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .feature-card-front,
+        .feature-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .feature-card-front {
+            background-color: white;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .feature-card-front i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card-back {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .feature-card-back p {
+            font-size: 1.1rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-form input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Blog Section */
+        .blog-section {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .blog-section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 50px;
+        }
+
+        .blog-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .blog-card {
+            background-color: white;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-card-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .blog-card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .blog-card-content p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .blog-card-content a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* CTA Section After Features */
+        .cta-section {
+            background-color: var(--accent-color); /* Black background */
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-section button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-section button:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color); /* Black text */
+            margin-bottom: 50px;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .pricing-card {
+            background-color: white;
+            width: 300px;
+            border-radius: 10px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .pricing-card .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-color); /* Black text */
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .pricing-card ul li i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .pricing-card button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pricing-card button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: var(--accent-color); /* Black background */
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .testimonials-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding-bottom: 20px;
+        }
+
+        .testimonial-card {
+            background-color: var(--primary-color);
+            min-width: 300px;
+            flex: none;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-card .client-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-card .client-info .client-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .testimonial-card .client-info .client-position {
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color); /* Black text */
+            margin-bottom: 50px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-question {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-question::after {
+            content: '\f078'; /* FontAwesome icon for chevron down */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(-180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 15px 20px;
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            border-top: none;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--accent-color); /* Black background */
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        #contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #contact-form input[type="text"],
+        #contact-form input[type="email"],
+        #contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        #contact-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact-form button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 40px 20px;
+        }
+
+        footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        footer .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Social Media Icons */
+        .social-media {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            color: var(--light-text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer p {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 40px 30px;
+            border: none;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+            animation: fadeIn 0.5s ease-in-out;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: var(--accent-color); /* Black text */
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="email"],
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .modal-content input[type="submit"] {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal-content input[type="submit"]:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: -10px;
+            font-size: 0.9rem;
+            color: red;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .password-requirements {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+        }
+
+        .password-requirements li {
+            margin-bottom: 5px;
+        }
+
+        .password-requirements .valid {
+            color: green;
+        }
+
+        .password-requirements .invalid {
+            color: red;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 992px) {
+            .features-grid,
+            .blog-grid,
+            .pricing-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card,
+            .blog-card,
+            .pricing-card {
+                width: 80%;
+            }
+
+            footer .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Accessibility Toolbar -->
+    <div class="accessibility-toolbar">
+        <button onclick="increaseTextSize()">A+</button>
+        <button onclick="decreaseTextSize()">A-</button>
+        <button onclick="toggleContrast()">Contrast</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">Outpost</div>
+        <ul>
+            <li><a href="#features-section">Features</a></li>
+            <li><a href="#blog-section">Blog</a></li>
+            <li><a href="#pricing-section">Pricing</a></li>
+            <li><a href="#faq-section">FAQ</a></li>
+            <li><a href="#contact-section">Contact</a></li>
+            <li><a href="#" onclick="openModal('sign-in-modal')">Sign In</a></li>
+            <li><a href="#" onclick="openModal('sign-up-modal')" class="cta-nav-button">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop>
+            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+            <!-- Replace the source with your preferred video URL -->
+        </video>
+        <h1 class="outlined-text">Outpost</h1>
+        <p class="outlined-text">Uniform communication across all platforms</p>
+        <div class="hero-buttons">
+            <button onclick="openModal('sign-up-modal')">Start Free Trial</button>
+            <button onclick="scrollToSection('features-section')">Learn More</button>
+        </div>
+        <!-- Bullet Points under Hero -->
+        <div class="hero-benefits">
+            <div class="benefit"><i class="fas fa-check-circle"></i> Real-time Messaging</div>
+            <div class="benefit"><i class="fas fa-check-circle"></i> Secure Video Calls</div>
+            <div class="benefit"><i class="fas fa-check-circle"></i> Task Management</div>
+            <div class="benefit"><i class="fas fa-check-circle"></i> Designed for First Responders</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features-section">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+            <!-- Existing feature cards -->
+            <div class="feature-card" data-aos="flip-left">
+                <div class="feature-card-inner">
+                    <div class="feature-card-front">
+                        <i class="fas fa-comments"></i>
+                        <h3>Direct Messaging</h3>
+                    </div>
+                    <div class="feature-card-back">
+                        <p>Send real-time messages to team members using secure username lookup.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="feature-card-inner">
+                    <div class="feature-card-front">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Conferencing</h3>
+                    </div>
+                    <div class="feature-card-back">
+                        <p>Initiate secure video calls with colleagues through username lookup.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="feature-card-inner">
+                    <div class="feature-card-front">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Task Management</h3>
+                    </div>
+                    <div class="feature-card-back">
+                        <p>Manage tasks efficiently with priority settings and team assignments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="feature-card-inner">
+                    <div class="feature-card-front">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Incident Reporting</h3>
+                    </div>
+                    <div class="feature-card-back">
+                        <p>Report incidents in real-time with location data and resource needs.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- New Feature Card -->
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="400">
+                <div class="feature-card-inner">
+                    <div class="feature-card-front">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>End-to-End Encryption</h3>
+                    </div>
+                    <div class="feature-card-back">
+                        <p>All your communications are secured with industry-leading encryption protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to our newsletter to get the latest updates and offers.</p>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog-section">
+        <h2>Latest Articles</h2>
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <div class="blog-card" data-aos="fade-up">
+                <img src="blog1.jpg" alt="Blog Post 1">
+                <div class="blog-card-content">
+                    <h3>Enhancing Team Communication</h3>
+                    <p>Discover strategies to improve communication within your team.</p>
+                    <a href="#">Read More &raquo;</a>
+                </div>
+            </div>
+            <!-- Blog Post 2 -->
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="blog2.jpg" alt="Blog Post 2">
+                <div class="blog-card-content">
+                    <h3>Task Management Tips</h3>
+                    <p>Learn how to manage tasks effectively to boost productivity.</p>
+                    <a href="#">Read More &raquo;</a>
+                </div>
+            </div>
+            <!-- Blog Post 3 -->
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="blog3.jpg" alt="Blog Post 3">
+                <div class="blog-card-content">
+                    <h3>Security in Communication</h3>
+                    <p>Understand the importance of end-to-end encryption.</p>
+                    <a href="#">Read More &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section After Features -->
+    <section class="cta-section">
+        <h2>Ready to Enhance Your Communication?</h2>
+        <p>Start your free trial today and experience the difference.</p>
+        <button onclick="openModal('sign-up-modal')">Start Free Trial</button>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing-section">
+        <h2>Choose Your Plan</h2>
+        <div class="pricing-cards">
+            <!-- Pro Plan -->
+            <div class="pricing-card" data-aos="fade-up">
+                <div class="badge">Best Value</div>
+                <h3>Pro</h3>
+                <p class="price">$2.99<span>/user</span></p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Real-time Messaging</li>
+                    <li><i class="fas fa-check"></i> Task Management</li>
+                    <li><i class="fas fa-check"></i> Video Conferencing</li>
+                    <li><i class="fas fa-check"></i> Priority Support</li>
+                </ul>
+                <button onclick="openModal('sign-up-modal')">Choose Plan</button>
+            </div>
+            <!-- Enterprise Plan -->
+            <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                <h3>Enterprise</h3>
+                <p class="price">Contact Sales</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> All Pro Features</li>
+                    <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                    <li><i class="fas fa-check"></i> Custom Integrations</li>
+                    <li><i class="fas fa-check"></i> On-site Training</li>
+                </ul>
+                <button onclick="contactSales()">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">What is the duration of the free trial?</button>
+                <div class="faq-answer">
+                    <p>You can try all the features of Outpost free for 14 days. No credit card required.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">Can I cancel my subscription at any time?</button>
+                <div class="faq-answer">
+                    <p>Yes, you can cancel your subscription at any time from your account settings.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">Do you offer discounts for non-profit organizations?</button>
+                <div class="faq-answer">
+                    <p>We offer special rates for non-profit organizations. Please contact our sales team for more information.</p>
+                </div>
+            </div>
+            <!-- Add more FAQ items as needed -->
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials-carousel">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <p>"Outpost has revolutionized our team's communication efficiency. It's an indispensable tool for our daily operations."</p>
+                <div class="client-info">
+                    <img src="client1.jpg" alt="Client Photo">
+                    <div>
+                        <div class="client-name">Chief Daniels</div>
+                        <div class="client-position">City Fire Department</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <p>"The secure messaging and task management features have greatly improved our project coordination."</p>
+                <div class="client-info">
+                    <img src="client2.jpg" alt="Client Photo">
+                    <div>
+                        <div class="client-name">Sarah Johnson</div>
+                        <div class="client-position">Project Manager, TechCorp</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <p>"Outpost's video conferencing is top-notch. It keeps our remote teams connected seamlessly."</p>
+                <div class="client-info">
+                    <img src="client3.jpg" alt="Client Photo">
+                    <div>
+                        <div class="client-name">Officer Smith</div>
+                        <div class="client-position">Police Department</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact-section">
+        <h2>Contact Us</h2>
+        <form id="contact-form" onsubmit="submitContactForm(event)">
+            <input type="text" id="contact-name" placeholder="Your Name" required>
+            <input type="email" id="contact-email" placeholder="Your Email" required>
+            <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Outpost</h3>
+                <p>Outpost is a unified communication platform designed for first responders and project managers, offering secure messaging, video conferencing, and task management tools.</p>
+                <!-- Social Media Icons -->
+                <div class="social-media">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features-section">Features</a></li>
+                    <li><a href="#blog-section">Blog</a></li>
+                    <li><a href="#pricing-section">Pricing</a></li>
+                    <li><a href="#faq-section">FAQ</a></li>
+                    <li><a href="#contact-section">Contact</a></li>
+                    <li><a href="#" onclick="openModal('sign-in-modal')">Sign In</a></li>
+                    <li><a href="#" onclick="openModal('sign-up-modal')">Sign Up</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="mailto:info@outpost.com"><i class="fas fa-envelope"></i> info@outpost.com</a></li>
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone"></i> +1 234 567 890</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Main Street, Anytown</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Outpost. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Sign Up Modal -->
+    <div id="sign-up-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sign-up-modal')">&times;</span>
+            <h2>Create Your Account</h2>
+            <form id="signup-form" onsubmit="handleSignUp(event)">
+                <!-- Username Field -->
+                <input type="text" id="signup-username" name="username" placeholder="Choose a username" required>
+
+                <!-- Email Field -->
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+
+                <!-- Password Field -->
+                <input type="password" id="signup-password" name="password" placeholder="Create a strong password" required onkeyup="checkPasswordStrength()">
+
+                <!-- Password Strength Indicator -->
+                <div class="password-strength" id="password-strength">Password Strength: Weak</div>
+                <ul class="password-requirements">
+                    <li id="char-count" class="invalid">At least 8 characters</li>
+                    <li id="uppercase" class="invalid">At least 1 uppercase letter</li>
+                    <li id="number" class="invalid">At least 1 number</li>
+                    <li id="special-char" class="invalid">At least 1 special character</li>
+                </ul>
+
+                <!-- Terms and Conditions -->
+                <label>
+                    <input type="checkbox" id="terms" name="terms" required> I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.
+                </label>
+
+                <!-- Submit Button -->
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="sign-in-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sign-in-modal')">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signin-form" onsubmit="handleSignIn(event)">
+                <!-- Email Field -->
+                <input type="email" id="signin-email" name="email" placeholder="Enter your email" required>
+
+                <!-- Password Field -->
+                <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+
+                <!-- Submit Button -->
+                <input type="submit" value="Sign In">
+            </form>
+        </div>
+    </div>
+
+    <!-- AOS JS for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            once: true,
+            easing: 'ease-in-out',
+        });
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Open Modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Close Modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close Modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal('sign-up-modal');
+                closeModal('sign-in-modal');
+            }
+        }
+
+        // Password Strength Checker
+        function checkPasswordStrength() {
+            const password = document.getElementById('signup-password').value;
+            let strength = 0;
+
+            // Regular Expressions
+            const regexes = {
+                uppercase: /[A-Z]/,
+                number: /[0-9]/,
+                specialChar: /[\W_]/
+            };
+
+            // Check Length
+            if (password.length >= 8) {
+                strength++;
+                document.getElementById('char-count').classList.add('valid');
+                document.getElementById('char-count').classList.remove('invalid');
+            } else {
+                document.getElementById('char-count').classList.add('invalid');
+                document.getElementById('char-count').classList.remove('valid');
+            }
+
+            // Check Uppercase
+            if (regexes.uppercase.test(password)) {
+                strength++;
+                document.getElementById('uppercase').classList.add('valid');
+                document.getElementById('uppercase').classList.remove('invalid');
+            } else {
+                document.getElementById('uppercase').classList.add('invalid');
+                document.getElementById('uppercase').classList.remove('valid');
+            }
+
+            // Check Number
+            if (regexes.number.test(password)) {
+                strength++;
+                document.getElementById('number').classList.add('valid');
+                document.getElementById('number').classList.remove('invalid');
+            } else {
+                document.getElementById('number').classList.add('invalid');
+                document.getElementById('number').classList.remove('valid');
+            }
+
+            // Check Special Character
+            if (regexes.specialChar.test(password)) {
+                strength++;
+                document.getElementById('special-char').classList.add('valid');
+                document.getElementById('special-char').classList.remove('invalid');
+            } else {
+                document.getElementById('special-char').classList.add('invalid');
+                document.getElementById('special-char').classList.remove('valid');
+            }
+
+            // Update Password Strength Indicator
+            const strengthIndicator = document.getElementById('password-strength');
+            if (strength === 4) {
+                strengthIndicator.textContent = 'Password Strength: Strong';
+                strengthIndicator.style.color = 'green';
+            } else if (strength === 3) {
+                strengthIndicator.textContent = 'Password Strength: Medium';
+                strengthIndicator.style.color = 'orange';
+            } else if (strength === 2) {
+                strengthIndicator.textContent = 'Password Strength: Weak';
+                strengthIndicator.style.color = 'red';
+            } else {
+                strengthIndicator.textContent = 'Password Strength: Very Weak';
+                strengthIndicator.style.color = 'darkred';
+            }
+        }
+
+        // Handle Sign Up
+        function handleSignUp(event) {
+            event.preventDefault();
+
+            // Validate Password Requirements
+            const passwordRequirements = document.querySelectorAll('.password-requirements .invalid');
+            if (passwordRequirements.length > 0) {
+                alert('Please meet all password requirements.');
+                return false;
+            }
+
+            // Validate Terms and Conditions
+            const termsChecked = document.getElementById('terms').checked;
+            if (!termsChecked) {
+                alert('You must agree to the terms and conditions.');
+                return false;
+            }
+
+            // Collect User Data
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+
+            // Simulate Backend API Call
+            alert('Registration successful! Please check your email to verify your account.');
+
+            closeModal('sign-up-modal');
+            return false;
+        }
+
+        // Handle Sign In
+        function handleSignIn(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('signin-password').value;
+
+            // Simulate Backend Authentication
+            if (email === 'user@example.com' && password === 'password123') {
+                alert('Sign In Successful!');
+                closeModal('sign-in-modal');
+                // Redirect to Dashboard or User Account
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid email or password.');
+            }
+            return false;
+        }
+
+        // Submit Contact Form
+        function submitContactForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
+
+            if (name && email && message) {
+                // Simulate sending data to the backend
+                alert('Thank you for contacting us! We will get back to you shortly.');
+                document.getElementById('contact-form').reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Toggle FAQ Answer
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                element.classList.remove('active');
+            } else {
+                answer.style.display = 'block';
+                element.classList.add('active');
+            }
+        }
+
+        // Accessibility Functions
+        let textSize = 1;
+        function increaseTextSize() {
+            textSize += 0.1;
+            document.body.style.fontSize = textSize + 'em';
+        }
+
+        function decreaseTextSize() {
+            textSize = Math.max(0.8, textSize - 0.1);
+            document.body.style.fontSize = textSize + 'em';
+        }
+
+        let highContrast = false;
+        function toggleContrast() {
+            highContrast = !highContrast;
+            if (highContrast) {
+                document.body.style.filter = 'invert(100%)';
+            } else {
+                document.body.style.filter = 'invert(0%)';
+            }
+        }
+
+        // Newsletter Subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = document.getElementById('newsletter-email').value.trim();
+
+            if (email) {
+                alert('Thank you for subscribing to our newsletter!');
+                document.querySelector('.newsletter-form').reset();
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+
+        // Additional Logic for Clickable Options
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollToSection(this.getAttribute('href').substring(1));
+            });
+        });
+
+        // Add logic to pricing plan buttons
+        document.querySelectorAll('.pricing-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const plan = this.parentElement.querySelector('h3').textContent;
+                openModal('sign-up-modal');
+                // Pre-select plan in sign-up process (if applicable)
+                console.log('Selected Plan:', plan);
+            });
+        });
+
+        // Contact Sales Function
+        function contactSales() {
+            // Open contact form or redirect to contact page
+            scrollToSection('contact-section');
+        }
+    </script>
+
+</body>
+</html>
